@@ -1,26 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
+import MovieItem from './components/MovieItem';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends React.Component{
+  state = {
+    movies: []
+  };
+
+  getMoviesData = () =>{
+    fetch('http://my-json-server.typicode.com/moviedb-tech/movies/list')
+      .then(response => response.json())
+      .then(data => this.setState({movies: data})
+      )
+  }
+
+  removeMovie = (movie) => {
+    
+  }
+
+  componentDidMount(){
+    this.getMoviesData();
+  }
+
+  render(){
+    const {movies} = this.state;
+    return (
+      <div className="movies-list">
+        {movies.map((movie, index) => <MovieItem key={index} movie={movie}/>)}
+      </div>
+    );
+  }
+
 }
 
 export default App;
