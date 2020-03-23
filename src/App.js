@@ -16,11 +16,14 @@ class App extends React.Component{
       )
   }
 
-  removeMovie = (movie) => {
-    
+  removeMovie = id => {
+    const updatedMovies = this.state.movies.filter(item => {
+      return item.id !== id;
+    });
+    this.setState({movies: updatedMovies})
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.getMoviesData();
   }
 
@@ -28,7 +31,7 @@ class App extends React.Component{
     const {movies} = this.state;
     return (
       <div className="movies-list">
-        {movies.map((movie, index) => <MovieItem key={index} movie={movie}/>)}
+        {movies.map((movie, index) => <MovieItem key={index} data={movie} removeMovie={this.removeMovie}/>)}
       </div>
     );
   }

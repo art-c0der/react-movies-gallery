@@ -14,7 +14,8 @@ export default class MovieItem extends Component {
 	}
 
 	render() {
-		const { movie: {name, description, img} } = this.props;
+		console.log(this.props);
+		const { data: {name, description, id, img}, removeMovie } = this.props;
 		return (
 			<div className="movie">
 				<Image src={img}/>
@@ -23,6 +24,7 @@ export default class MovieItem extends Component {
 					<button className="btn btn--show" onClick={this.toogleDescription}>
 						{this.state.showDescription? 'Hide' : 'Show'}
 					</button>
+					<button onClick={removeMovie.bind(null, id)}>Delete</button>
 				</div>
 				{this.state.showDescription? <p>{description}</p> : null}
 			</div>
