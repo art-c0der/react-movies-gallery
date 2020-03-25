@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-
-const Image = props => {
-  return <img src={props.src} alt={props.alt} width="100%" />;
-};
+import {Card, Button} from 'react-bootstrap';
 
 export default class MovieItem extends Component {
   state = {
@@ -14,23 +11,26 @@ export default class MovieItem extends Component {
   };
 
   render() {
-    console.log(this.props);
     const {
       data: {name, description, id, img},
       removeMovie
     } = this.props;
+
     return (
-      <div className="movie">
-        <Image src={img} />
-        <p>{name}</p>
-        <div>
-          <button className="btn btn--show" onClick={this.toogleDescription}>
-            {this.state.showDescription ? 'Hide' : 'Show'}
-          </button>
-          <button onClick={removeMovie.bind(null, id)}>Delete</button>
-        </div>
-        {this.state.showDescription ? <p>{description}</p> : null}
-      </div>
+      <Card style={{width: '100%', marginBottom: '20px'}}>
+        <Card.Img variant="top" src={img} alt={name} thumbnail />
+        <Card.Body>
+          <Card.Title>{name}</Card.Title>
+          <Card.Text>{this.state.showDescription ? <p>{description}</p> : null}</Card.Text>
+          <Button variant="primary" onClick={this.toogleDescription}>
+            {' '}
+            {this.state.showDescription ? 'Hide description' : 'Show description'}
+          </Button>
+          <Button variant="danger" onClick={removeMovie.bind(null, id)}>
+            Delete
+          </Button>
+        </Card.Body>
+      </Card>
     );
   }
 }
