@@ -1,11 +1,4 @@
-.movies-list {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.movie {
-  width: 32%;
-  max-width: 300px;
+.favorites {
+  position: sticky;
+  top: 0;
 }
