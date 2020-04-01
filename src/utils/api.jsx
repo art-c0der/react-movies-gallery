@@ -5,8 +5,8 @@ export const API_KEY_3 = "23506cba8a6228cba81e4c4c021d4ecd";
 export const API_KEY_4 =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZjRjYTRmM2E5NzUwZGE1MzQ1MDY0NmNlZDMxMjM5NyIsInN1YiI6IjVhYzlmNWRkOTI1MTQxNjJhZTA1Njk0NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Fc4f9DVB6pFWh6hIjYe0NCC4pImdmNzDIfi_3Nb3tC4";
 
-  export const moviesDB = [
-    {
+export const moviesDB = [
+  {
     "popularity": 711.949,
     "vote_count": 719,
     "video": false,
