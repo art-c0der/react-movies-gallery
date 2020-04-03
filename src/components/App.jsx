@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from './components/Header';
-import MovieItem from './components/MovieItem';
-import PaginationList from './components/PaginationList';
-import {API_URL, API_KEY_3} from './utils/api';
+import Header from './Header';
+import MovieItem from './MovieItem';
+import PaginationList from './PaginationList';
+import {API_URL, API_KEY_3} from '../utils/api';
 import {Container, Row, Col, ListGroup, Badge} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import '../App.css';
 
 class App extends React.Component {
   state = {
@@ -16,38 +16,21 @@ class App extends React.Component {
   };
 
   getMoviesData = () => {
-    if (localStorage.getItem('movies')) {
-      const data = JSON.parse(localStorage.getItem('movies'));
-      this.setState({
-        movies: data
-      });
-    } else {
-      fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&language=ru-RU`)
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          const moviesFromApi = data.results;
-          localStorage.setItem('movies', JSON.stringify(moviesFromApi));
-          this.setState({
-            movies: moviesFromApi
-          });
-        });
-    }
-  };
-
-  refreshMoviesData = (sortBy = this.state.sortBy, page = this.state.activePage) => {
     fetch(
-      `${API_URL}/discover/movie?api_key=${API_KEY_3}&language=ru-RU&sort_by=${sortBy}&page=${page}`
+      `${API_URL}/discover/movie?api_key=${API_KEY_3}&language=ru-RU&sort_by=${this.state.sortBy}&page=${this.state.activePage}`
     )
       .then(response => response.json())
       .then(data => {
-        this.setState({
-          sortBy: sortBy,
-          movies: data.results,
-          activePage: page
-        });
+        this.setState({movies: data.results});
       });
+  };
+
+  updateSortBy = sortBy => {
+    this.setState({sortBy: sortBy});
+  };
+
+  updatePage = page => {
+    this.setState({activePage: page});
   };
 
   removeMovie = id => {
@@ -74,14 +57,26 @@ class App extends React.Component {
   };
 
   componentWillMount() {
+    console.log('componentWillMount');
     this.getMoviesData();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate');
+
+    console.log('prev', prevProps, prevState);
+    console.log('this', this.props, this.state);
+    if (prevState.sortBy !== this.state.sortBy || prevState.activePage !== this.state.activePage) {
+      this.getMoviesData();
+    }
+  }
+
   render() {
+    console.log('render');
     return (
       <Container>
         <Row className="border-top-0 border-primary my-3">
-          <Header refreshMoviesData={this.refreshMoviesData} />
+          <Header updateSortBy={this.updateSortBy} />
         </Row>
         <Row>
           <Col sm="9">
@@ -117,11 +112,7 @@ class App extends React.Component {
           </Col>
         </Row>
         <Row>
-          <PaginationList
-            sortBy={this.state.sortBy}
-            activePage={this.state.activePage}
-            refreshMoviesData={this.refreshMoviesData}
-          />
+          <PaginationList activePage={this.state.activePage} updatePage={this.updatePage} />
         </Row>
       </Container>
     );

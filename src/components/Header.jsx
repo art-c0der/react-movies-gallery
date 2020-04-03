@@ -2,10 +2,10 @@ import React from 'react';
 import {Nav} from 'react-bootstrap';
 
 const Header = props => {
-  const {refreshMoviesData} = props;
+  const {updateSortBy} = props;
 
   const handleClick = value => () => {
-    refreshMoviesData(value);
+    updateSortBy(value);
   };
   return (
     <Nav variant="pills" defaultActiveKey="link-1">
