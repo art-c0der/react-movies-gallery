@@ -2,3 +2,10 @@
   position: sticky;
   top: 0;
 }
+
+@media screen and (max-width: 575.98px) {
+  .movie__img {
+    max-height: 300px;
+    object-fit: contain;
+  }
+}

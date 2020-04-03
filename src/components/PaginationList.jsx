@@ -16,7 +16,7 @@ const PaginationList = props => {
       </Pagination.Item>
     );
   }
-  return <Pagination>{items}</Pagination>;
+  return <Pagination className="mx-auto">{items}</Pagination>;
 };
 
 export default PaginationList;

@@ -17,12 +17,10 @@ class App extends React.Component {
 
   getMoviesData = () => {
     fetch(
-      `${API_URL}/discover/movie?api_key=${API_KEY_3}&language=ru-RU&sort_by=${this.state.sortBy}&page=${this.state.activePage}`
+      `${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sortBy}&page=${this.state.activePage}`
     )
       .then(response => response.json())
-      .then(data => {
-        this.setState({movies: data.results});
-      });
+      .then(data => this.setState({movies: data.results}));
   };
 
   updateSortBy = sortBy => {

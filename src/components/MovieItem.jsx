@@ -13,7 +13,7 @@ export default class MovieItem extends Component {
 
   render() {
     const {
-      movie: {title, overview, id, poster_path, backdrop_path},
+      movie: {title, overview, id, vote_average, poster_path, backdrop_path},
       removeMovie,
       addMoviesToWillWatch,
       removeMoviesFromWillWatch,
@@ -24,25 +24,31 @@ export default class MovieItem extends Component {
       <Card style={{width: '100%', marginBottom: '20px'}}>
         <Card.Img
           variant="top"
-          src={`https://image.tmdb.org/t/p/w300/${poster_path || backdrop_path}`}
+          className="movie__img"
+          src={
+            poster_path || backdrop_path
+              ? `https://image.tmdb.org/t/p/w300/${poster_path || backdrop_path}`
+              : '/img/film-poster-placeholder.png'
+          }
           alt={title}
         />
         <Card.Body>
           <Card.Title>
             {title}
             <Badge pill variant="warning" className="ml-1">
-              {movie.vote_average}
+              {vote_average}
             </Badge>
           </Card.Title>
-          <Card.Text>{this.state.showDescription ? <p>{overview}</p> : null}</Card.Text>
-          <Button variant="success" size="sm" className="mr5" onClick={this.toogleDescription}>
+          <Card.Text>{this.state.showDescription ? overview || 'No description' : null}</Card.Text>
+          <Button variant="dark" size="sm" className="mr-1 mb-1" onClick={this.toogleDescription}>
             {' '}
             {this.state.showDescription ? 'Hide description' : 'Show description'}
           </Button>
           {this.state.willWatch ? (
             <Button
-              variant="default"
+              variant="light"
               size="sm"
+              className="mr-1 mb-1"
               onClick={() => {
                 this.setState({willWatch: false});
                 removeMoviesFromWillWatch(id);
@@ -52,8 +58,9 @@ export default class MovieItem extends Component {
             </Button>
           ) : (
             <Button
-              variant="primary"
+              variant="success"
               size="sm"
+              className="mr-1 mb-1"
               onClick={() => {
                 this.setState({willWatch: true});
                 addMoviesToWillWatch(movie);
@@ -62,7 +69,12 @@ export default class MovieItem extends Component {
               Will watch
             </Button>
           )}
-          <Button variant="outline-danger" size="sm" onClick={removeMovie.bind(null, id)}>
+          <Button
+            variant="outline-danger"
+            size="sm"
+            className="mb-1"
+            onClick={removeMovie.bind(null, id)}
+          >
             Delete
           </Button>
         </Card.Body>
