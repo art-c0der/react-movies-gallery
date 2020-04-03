@@ -57,22 +57,16 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    console.log('componentWillMount');
     this.getMoviesData();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate');
-
-    console.log('prev', prevProps, prevState);
-    console.log('this', this.props, this.state);
     if (prevState.sortBy !== this.state.sortBy || prevState.activePage !== this.state.activePage) {
       this.getMoviesData();
     }
   }
 
   render() {
-    console.log('render');
     return (
       <Container>
         <Row className="border-top-0 border-primary my-3">
