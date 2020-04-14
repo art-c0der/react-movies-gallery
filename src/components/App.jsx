@@ -16,9 +16,7 @@ class App extends React.Component {
   };
 
   getMoviesData = () => {
-    fetch(
-      `${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sortBy}&page=${this.state.activePage}`
-    )
+    fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sortBy}&page=${this.state.activePage}`)
       .then(response => response.json())
       .then(data => this.setState({movies: data.results}));
   };
@@ -65,6 +63,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log('test');
     return (
       <Container>
         <Row className="border-top-0 border-primary my-3">
